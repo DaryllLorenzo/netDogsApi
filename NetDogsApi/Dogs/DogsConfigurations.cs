@@ -1,4 +1,5 @@
 using NetDogsApi.Dogs.Features.GetDogs;
+using NetDogsApi.Dogs.Features.CreateDogs;
 
 namespace NetDogsApi.Dogs;
 
@@ -12,7 +13,7 @@ internal static class DogsConfigurations
         var dogs = endpoints.MapGroup(PrefixUri).WithTags(Tag);
         
         dogs.MapGetDogsEndpoint();
-        // dogs.MapCreateDogEndpoint();
+        dogs.MapCreateDogEndpoint();
         // dogs.MapGetDogByIdEndpoint();
         // dogs.MapUpdateDogEndpoint();
         // dogs.MapDeleteDogEndpoint();

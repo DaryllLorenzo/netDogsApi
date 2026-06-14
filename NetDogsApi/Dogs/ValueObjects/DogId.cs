@@ -16,6 +16,9 @@ public record DogId
         return new DogId(id);
     }
 
+    // convenience method to create a new DogId with a new GUID
+    public static DogId New() => new(Guid.NewGuid());
+
     // implicit conversions for convenience
     public static implicit operator Guid(DogId id) => id.Value;
     public static implicit operator DogId(Guid id) => Of(id);
