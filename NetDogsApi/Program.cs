@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using NetDogsApi.Configurations;
+using NetDogsApi.Dogs;
 using NetDogsApi.Shared.Data;
+using Sieve.Models;
+using Sieve.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +28,13 @@ builder.Services.AddDbContext<NetDogsApiDbContext>(options =>
 
 builder.Services.AddScoped<NetDogsApiDataSeeder>();
 
+builder.Services.AddScoped<ISieveCustomSortMethods, EmptySieveCustomSortMethods>();
+builder.Services.AddScoped<ISieveCustomFilterMethods, EmptySieveCustomFilterMethods>();
+builder.Services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
+builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("Sieve"));
+builder.Services.AddMediatR(cfg => 
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
@@ -35,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapDogsEndpoints();
 
 await DatabaseInitializer.InitializeAsync(app.Services, app.Configuration);
 
