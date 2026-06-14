@@ -1,0 +1,35 @@
+# Build output
+bin/
+obj/
+Debug/
+Release/
+
+# User settings
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Logs
+logs/
+*.log
+
+# Database
+*.db
+*.sqlite
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# .env files
+.env
+.env.*
+!.env.example
+
+# User Secrets
+secrets.json
+
+# Migration files
+# **/Migrations/*.Designer.cs
